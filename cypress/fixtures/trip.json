@@ -1,9 +1,22 @@
 {
-    "origrion": ["DXB"],
-    "destination": ["AMM"],
-    "goDate":0,
-    "backDay":5,
-    "adultsPassengerNumber":3,
-    "cheldrenPassengerNumber":0,
-    "infantsPassengerNumber":1
-  }
+  "origrion": [
+    "DXB",
+    "AUH",
+    "SHJ",
+    "JED",
+    "RUH"
+  ],
+  "destination": [
+    "AMM",
+    "CAI",
+    "DEL",
+    "KHI",
+    "CDG"
+  ],
+  "goDate": 0,
+  "backDay": 6,
+  "passengertype": "Economy",
+  "adultsPassengerNumber": 1,
+  "cheldrenPassengerNumber": 0,
+  "infantsPassengerNumber": 0
+}
