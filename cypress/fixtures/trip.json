@@ -1,0 +1,9 @@
+{
+    "origrion": ["DXB"],
+    "destination": ["AMM"],
+    "goDate":0,
+    "backDay":5,
+    "adultsPassengerNumber":3,
+    "cheldrenPassengerNumber":0,
+    "infantsPassengerNumber":1
+  }
