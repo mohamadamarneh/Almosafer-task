@@ -14,6 +14,8 @@ I preffer to make the data seperated from the code so in :cypress/fixtures/trip.
 
 4-"adultsPassengerNumber", "cheldrenPassengerNumber","infantsPassengerNumber" keys for control with numbers of passengers, as a required busseniss conditions like you (cant add infants number more than adults number).
 
-6- i added comments to explane code blocks.
+5- i added comments to explane code blocks.
+
+6-report in cypress/reports/html/index.html 
 
 hope you like it. 
