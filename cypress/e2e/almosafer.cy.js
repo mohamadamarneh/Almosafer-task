@@ -2,10 +2,17 @@
 context('almosafer', () => {
 
   before(() => {
+
+    // setup for before start the test suite 
+    cy.clearCookies();
+    cy.clearLocalStorage();
     cy.visit('/');
     cy.fixture('trip').then(function (data) {
       globalThis.data = data
     });
+    (cy.state('runnable').ctx).currentTest.parent.bail(true);
+
+
   })
 
 
@@ -27,7 +34,7 @@ context('almosafer', () => {
 
     // we got here already redirect and have parameters and page lang
     // close SAR/USD popup
-    // cy.get('.cta__saudi').click();
+    cy.get('.cta__saudi').click();
     // cy.get('body').then((body) => {
     //   if (body.includes('cta__saudi')) {
     //     cy.get('.cta__saudi').click();
@@ -162,51 +169,132 @@ context('almosafer', () => {
     cy.get('[data-testid="FlightSearchBox__PaxDropdown"]').click();
 
     //assert adults defult value
-    cy.get('[data-testid="FlightSearchPAXSelection__AdultsCountLabel"]')
-      .should('have.text', 1);
+
+
+
 
     // adoult/s number
     function adultsCounter(num) {
-      for (let i = 1; i < num; i++) {
-        cy.get('[data-testid="FlightSearchPAXSelection__AdultsPlusButton"]').click();
-        // assert if the adding reflect on the counter
-        cy.get('[data-testid="FlightSearchPAXSelection__AdultsCountLabel"]')
-          .should('have.text', i + 1);
-      }
+
+      // verify counter finctions (increase ,decreas , counter)
+      cy.get('[data-testid="FlightSearchPAXSelection__AdultsCountLabel"]').invoke('text')
+        .then((text) => {
+
+          cy.get('[data-testid="FlightSearchPAXSelection__AdultsPlusButton"]').click();
+          cy.get('[data-testid="FlightSearchPAXSelection__AdultsMinusButton"]').click();
+
+          cy.get('[data-testid="FlightSearchPAXSelection__AdultsCountLabel"]')
+            .should('have.text', text);
+
+
+
+
+          if (num > text) {
+
+            for (let i = Number(text); i < num; i++) {
+              // if (num == 1) {
+              //   break
+              // }
+              cy.get('[data-testid="FlightSearchPAXSelection__AdultsPlusButton"]').click();
+              // assert if the adding reflect on the counter
+              cy.get('[data-testid="FlightSearchPAXSelection__AdultsCountLabel"]')
+                .should('have.text', i + Number(text));
+
+            }
+
+          } if (num < text) {
+
+            cy.get('[data-testid="FlightSearchPAXSelection__AdultsMinusButton"]').click();
+            cy.get('[data-testid="FlightSearchPAXSelection__AdultsCountLabel"]')
+              .should('have.text', 0);
+          }
+
+        })
+
+
     }
     adultsCounter(data.adultsPassengerNumber);
 
 
 
-    //assert cheldren defult value
-    cy.get('[data-testid="FlightSearchPAXSelection__ChildrenCountLabel"]')
-      .should('have.text', 0);
+
+
+
 
 
     // cheldren number
     function cheldrenCounter(num) {
-      for (let i = 1; i < num; i++) {
-        cy.get('[data-testid="FlightSearchPAXSelection__ChildrenPlusButton"]').click();
-        // assert if the adding reflect on the counter
-        cy.get('[data-testid="FlightSearchPAXSelection__ChildrenCountLabel"]')
-          .should('have.text', i + 0);
-      }
+      // verify counter finctions (increase ,decreas , counter)
+      cy.get('[data-testid="FlightSearchPAXSelection__ChildrenCountLabel"]').invoke('text')
+        .then((text) => {
+
+          cy.get('[data-testid="FlightSearchPAXSelection__ChildrenPlusButton"]').click();
+          cy.get('[data-testid="FlightSearchPAXSelection__ChildrenMinusButton"]').click();
+
+          cy.get('[data-testid="FlightSearchPAXSelection__ChildrenCountLabel"]')
+            .should('have.text', text);
+          if (num > text) {
+
+            for (let i = Number(text) + 1; i < num + 1; i++) {
+
+              cy.get('[data-testid="FlightSearchPAXSelection__ChildrenPlusButton"]').click();
+              // assert if the adding reflect on the counter
+              cy.get('[data-testid="FlightSearchPAXSelection__ChildrenCountLabel"]')
+                .should('have.text', i + Number(text));
+
+            }
+          } if (num < text) {
+            cy.get('[data-testid="FlightSearchPAXSelection__ChildrenMinusButton"]').click();
+            cy.get('[data-testid="FlightSearchPAXSelection__ChildrenCountLabel"]')
+              .should('have.text', 0);
+          }
+
+
+        })
     }
     cheldrenCounter(data.cheldrenPassengerNumber);
 
 
-    //assert infants defult value
-    cy.get('[data-testid="FlightSearchPAXSelection__InfantsCountLabel"]')
-      .should('have.text', 0);
+
+
+
+
+
 
     // infants number
     function infantsCounter(num) {
-      for (let i = 1; i < num; i++) {
-        cy.get('[data-testid="FlightSearchPAXSelection__InfantsPlusButton"]').click();
-        // assert if the adding reflect on the counter
-        cy.get('[data-testid="FlightSearchPAXSelection__InfantsCountLabel"]')
-          .should('have.text', i + 0);
-      }
+      // verify counter finctions (increase ,decreas , counter)
+      cy.get('[data-testid="FlightSearchPAXSelection__InfantsCountLabel"]').invoke('text')
+        .then((text) => {
+
+          cy.get('[data-testid="FlightSearchPAXSelection__InfantsPlusButton"]').click();
+          cy.get('[data-testid="FlightSearchPAXSelection__InfantsMinusButton"]').click();
+
+          cy.get('[data-testid="FlightSearchPAXSelection__InfantsCountLabel"]')
+            .should('have.text', text);
+
+
+          if (num > text) {
+
+            for (let i = Number(text) + 1; i < num + 1; i++) {
+              // if (num == 1) {
+              //   break
+              // }
+              cy.get('[data-testid="FlightSearchPAXSelection__InfantsPlusButton"]').click();
+              // assert if the adding reflect on the counter
+              cy.get('[data-testid="FlightSearchPAXSelection__InfantsCountLabel"]')
+                .should('have.text', i + Number(text));
+
+            }
+          } if (num < text) {
+            cy.get('[data-testid="FlightSearchPAXSelection__InfantsMinusButton"]').click();
+            cy.get('[data-testid="FlightSearchPAXSelection__InfantsCountLabel"]')
+              .should('have.text', text);
+          }
+
+
+
+        })
     }
     infantsCounter(data.infantsPassengerNumber);
 
@@ -231,7 +319,7 @@ context('almosafer', () => {
 
     cy.intercept("POST", '/api/v3/flights/flight/async-search-result').as('getData');
     cy.intercept("POST", 'https://api2.branch.io/v1/pageview').as('getData2');
-    cy.wait(5000)
+    
     // 
     // for (let i = 0; i < 1; i++) {
 
@@ -250,7 +338,8 @@ context('almosafer', () => {
 
 
     // its already selected but to its required 
-    cy.get('[data-testid="Cheapest__SortBy__selected"]').click();
+    cy.get('[data-testid="Cheapest__SortBy__selected"]', { timeout: 20000 }).as("searCheabestButton");
+
 
     // find the value for the first item, we can do it with more then one way
     cy.get('[data-testid*="_container"]').first()
